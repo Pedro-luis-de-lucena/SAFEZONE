@@ -4,6 +4,7 @@ from level import Level
 from network import Network
 
 class Game:
+    
 	def __init__(self):
 		self.net = Network()
 		# general setup

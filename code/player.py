@@ -66,18 +66,10 @@ class Player(pygame.sprite.Sprite):
 		self.send_data()
   
 	def send_data(self):
-		data = str(self.net.id) + ":" + str(self.hitbox.x) + "," + str(self.hitbox.y)
+		data = (self.hitbox.x, self.hitbox.y)
 		reply = self.net.send(data)
-		self.reply = reply
-		(x,y) = self.parse_data(reply)
+		(x,y) = reply
 		self.pos2.x = x
 		self.pos2.y = y 
-		return reply
 	
-	@staticmethod
-	def parse_data(data):
-		try:
-			d = data.split(":")[1].split(",")
-			return int(d[0]), int(d[1])
-		except:
-			return 0,0 	
+
