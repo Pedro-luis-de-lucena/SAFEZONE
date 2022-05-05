@@ -17,6 +17,7 @@ except socket.error as e:
 
 s.listen(2)
 print("Waiting for a connection")
+
 pos = [0,0]
 pos1 = [pos,pos]
 currentId = "0"
@@ -27,7 +28,6 @@ def threaded_client(conn,pos):
     while True:
         try:
             data = pickle.loads(conn.recv(2048))
-            print(data)
             pos1[pos] = data
             if not data:
                 print("discconect")
@@ -37,9 +37,6 @@ def threaded_client(conn,pos):
                     reply = pos1[0]
                 else:
                     reply = pos1[1]
-
-                print("Received: ", data)
-                print("Sending : ", reply)
                 
             conn.sendall(pickle.dumps(reply))
         except:

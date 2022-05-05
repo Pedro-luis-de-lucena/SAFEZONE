@@ -1,9 +1,8 @@
-import pygame 
+import pygame
 from settings import *
 from tile import Tile
 from player import Player
 from p import P
-from debug import debug
 from support import *
 from random import choice
 
@@ -49,12 +48,15 @@ class Level:
 							Tile((x,y),[self.visible_sprites,self.obstacle_sprites],'object',surf)
 
 		self.player = Player((2000,1430),[self.visible_sprites],self.obstacle_sprites,network)
-		self.p = P((self.player.pos2),[self.visible_sprites],self.obstacle_sprites)
+		self.p = P([self.visible_sprites],self.obstacle_sprites,network)
 	def run(self):
 		# update and draw the game
 		self.visible_sprites.custom_draw(self.p)
 		self.visible_sprites.custom_draw(self.player)
 		self.visible_sprites.update()
+		recv = self.player.send_data()
+		if recv != None:	
+   			self.p.recv_data(recv)
 
 
 class YSortCameraGroup(pygame.sprite.Group):
